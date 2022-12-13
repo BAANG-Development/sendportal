@@ -19,5 +19,6 @@ resources/views/vendor/
 composer.lock
 phpunit.xml
 docker-compose.*.yml
-data/*
+data/
 
+.DS_Store

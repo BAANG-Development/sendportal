@@ -2,11 +2,12 @@ version: "3.8"
 
 services:
   sendportal:
-    image: NostraThomas99/sendportal
+    image: sendportal:latest
     volumes:
-      - ./data:/data
+      - ./data/ssl:/etc/nginx/ssl
     ports:
-      - 8080:8080
+      - 80:80
+      - 443:443
     environment:
       - APP_NAME=SendPortal
       - APP_ENV=local
@@ -60,3 +61,7 @@ services:
       - SENDPORTAL_THROTTLE_MIDDLEWARE=60,1
       - SENDPORTAL_REGISTER=false
       - SENDPORTAL_PASSWORD_RESET=true
+
+      - LETSENCRYPT=true
+      - LE_FQDN=campaigns.example.com
+      - LE_EMAIL=email@example.com
