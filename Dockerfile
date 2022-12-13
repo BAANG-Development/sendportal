@@ -15,12 +15,14 @@ RUN rm Dockerfile
 RUN composer install --optimize-autoloader --no-interaction --no-progress
 RUN php artisan vendor:publish --provider=Sendportal\\Base\\SendportalBaseServiceProvider
 
-FROM --platform=linux/amd64 trafex/php-nginx
+FROM --platform=linux/amd64 ghcr.io/nostrathomas99/nginx-le:master as nginx
 
-USER root
-RUN apk add --no-cache php81-pdo_mysql php81-tokenizer php81-bcmath php81-ctype php81-curl php81-dom php81-fileinfo php81-json php81-mbstring php81-openssl php81-xml php81-simplexml
+RUN apk add --no-cache php php-fpm php-ctype php-curl php-dom php-gd php-intl php-mbstring php-mysqli php-opcache php-openssl php-phar php-session php-xml php-xmlreader php-pdo_mysql php-tokenizer php-bcmath php-ctype php-curl php-dom php-fileinfo php-json php-mbstring php-openssl php-xml php-simplexml
+
+COPY docker/fpm-pool.conf /etc/php/php-fpm.d/www.conf
+COPY docker/php.ini /etc/php/conf.d/custom.ini
+
+COPY docker/laravel.conf /etc/nginx/service.conf
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-USER nobody
 
-COPY docker/nginx.conf /etc/nginx/
-COPY --chown=nobody --from=compile /sendportal /var/www/html
+COPY --from=compile /sendportal /var/www/html
