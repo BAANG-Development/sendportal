@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
                 } else if ($request && (($apiToken = $request->bearerToken()) || ($apiToken = $request->get('api_token')))) {
                     $workspaceId = ApiToken::resolveWorkspaceId($apiToken);
                 }
-                if($this->app->environment('production')) {
+                if($this->app->env('production')) {
                     \URL::forceScheme('https');
                 }
 
