@@ -39,6 +39,9 @@ class AppServiceProvider extends ServiceProvider
                 } else if ($request && (($apiToken = $request->bearerToken()) || ($apiToken = $request->get('api_token')))) {
                     $workspaceId = ApiToken::resolveWorkspaceId($apiToken);
                 }
+                if($this->app->environment('production')) {
+                    \URL::forceScheme('https');
+                }
 
                 if (! $workspaceId) {
                     throw new RuntimeException("Current Workspace ID Resolver must not return a null value.");

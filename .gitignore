@@ -20,5 +20,6 @@ composer.lock
 phpunit.xml
 docker-compose.*.yml
 data/
+compile/
 
 .DS_Store
