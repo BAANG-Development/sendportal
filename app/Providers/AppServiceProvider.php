@@ -23,7 +23,7 @@ class AppServiceProvider extends ServiceProvider
         //
     }
 
-    public function boot(UrlGenerator $url): void
+    public function boot(): void
     {
         Paginator::useBootstrap();
 
@@ -41,7 +41,6 @@ class AppServiceProvider extends ServiceProvider
                 }
 
                 if (env('APP_ENV') !== 'local') {
-                    $url->forceScheme('https');
                     \URL::forceScheme('https');
                 }
 
