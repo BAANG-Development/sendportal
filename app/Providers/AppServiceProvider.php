@@ -12,6 +12,7 @@ use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use RuntimeException;
 use Sendportal\Base\Facades\Sendportal;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
 
                 if (env('APP_ENV') !== 'local') {
                     $this->app['request']->server->set('HTTPS', true);
+                    URL::forceScheme('https');
                 }
 
                 if (! $workspaceId) {
