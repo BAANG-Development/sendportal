@@ -41,10 +41,9 @@ class AppServiceProvider extends ServiceProvider
                     $workspaceId = ApiToken::resolveWorkspaceId($apiToken);
                 }
 
-                if (env('APP_ENV') !== 'local') {
-                    $this->app['request']->server->set('HTTPS', true);
-                    URL::forceSchema('https');
-                }
+                if($this->app->environment('production')) { // it will force redirect to https in Production mode 
+                    URL::forceScheme('https');
+              }
 
                 if (! $workspaceId) {
                     throw new RuntimeException("Current Workspace ID Resolver must not return a null value.");
