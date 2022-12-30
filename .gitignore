@@ -21,5 +21,6 @@ phpunit.xml
 docker-compose.*.yml
 data/
 compile/
+*.conf
 
 .DS_Store
