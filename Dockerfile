@@ -13,6 +13,7 @@ WORKDIR /sendportal
 RUN rm -rf docker
 RUN rm Dockerfile
 RUN rm docker-compose.yml
+RUN composer config allow-plugins.php-http/discovery true
 RUN composer install --optimize-autoloader --no-interaction --no-progress
 RUN php artisan vendor:publish --provider=Sendportal\\Base\\SendportalBaseServiceProvider
 
