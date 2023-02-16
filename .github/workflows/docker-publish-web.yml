@@ -1,4 +1,4 @@
-name: Docker
+name: Docker-Web
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
       - run: |
-          docker build . -t sendportal:latest
+          docker build . -t sendportal:latest -f Dockerfile
           docker tag sendportal:latest gacontainers.azurecr.io/sendportal:latest
           docker tag sendportal:latest gacontainers.azurecr.io/sendportal:${{ github.sha }}
           docker push gacontainers.azurecr.io/sendportal:${{ github.sha }}
